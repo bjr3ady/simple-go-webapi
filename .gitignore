@@ -1,0 +1,6 @@
+*.log
+*.vscode
+runtime
+debug
+dist
+.DS_Store
