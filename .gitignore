@@ -4,3 +4,4 @@ runtime
 debug
 dist
 .DS_Store
+debug.test

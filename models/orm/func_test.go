@@ -21,21 +21,32 @@ func TestCreateFunc(t *testing.T) {
 	}
 }
 
-func getTestFunc(t *testing.T) {
+func getTestFunc(t *testing.T) *Func {
 	result, err := testFunc.GetSome(0, 1, "")
 	if err != nil {
 		t.Error(err)
+		return nil
 	}
 	funcs, ok := result.([]Func)
 	if !ok {
 		t.Error(errors.New("Failed to cast query result to system functions"))
+		return nil
 	}
-	testFunc = &funcs[0]
+	if len(funcs) == 0 {
+		return nil
+	}
+	return &funcs[0]
 }
 
 func TestHasFuncByName(t *testing.T) {
-	getTestFunc(t)
+	testFunc = getTestFunc(t)
 	if exists, err := testFunc.HasName(); !exists || err != nil {
+		t.Error(err)
+	}
+}
+
+func TestGetFuncByName(t *testing.T) {
+	if err := testFunc.GetByName(); err != nil {
 		t.Error(err)
 	}
 }
@@ -52,7 +63,7 @@ func TestGetSomeFuncs(t *testing.T) {
 }
 
 func TestGetSingleFunc(t *testing.T) {
-	getTestFunc(t)
+	testFunc = getTestFunc(t)
 	if err := testFunc.GetSingle(); err != nil {
 		t.Error(err)
 	}
@@ -65,7 +76,7 @@ func TestGetTotalFuncs(t *testing.T) {
 }
 
 func TestEditFunc(t *testing.T) {
-	getTestFunc(t)
+	testFunc = getTestFunc(t)
 	fun, ok := testFunc.(*Func)
 	if !ok {
 		t.Error(errors.New("Failed to cast query result to system function"))
@@ -80,7 +91,7 @@ func TestEditFunc(t *testing.T) {
 }
 
 func TestDeleteFunc(t *testing.T) {
-	getTestFunc(t)
+	testFunc = getTestFunc(t)
 	if err := testFunc.Delete(); err != nil {
 		t.Error(err)
 	}

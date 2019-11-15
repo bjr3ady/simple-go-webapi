@@ -5,11 +5,11 @@ import (
 	util "github.com/bjr3ady/go-util"
 )
 
-// Func is the ORM ordermachine_func table object.
+// Func is the ORM school_board_func table object.
 type Func struct {
 	Model
 	FuncID string `json:"func_id" gorm:"index"`
-	Name string `json:"name"`
+	Name   string `json:"name"`
 }
 
 // Create creates new system function.
@@ -33,7 +33,7 @@ func (fun *Func) GetSome(pageNum, pageSize int, maps interface{}) (interface{}, 
 }
 
 //GetTotal query count of system functions.
-func (fun *Func) GetTotal(maps interface{}) (int, error) {
+func (Func) GetTotal(maps interface{}) (int, error) {
 	var count int
 	if err := db.Model(&Func{}).Where(maps).Count(&count).Error; err != nil {
 		logger.Error("Failed to query count of system functions.", err)
@@ -62,7 +62,7 @@ func (fun *Func) Edit() error {
 
 //Delete deletes specific system function
 func (fun *Func) Delete() error {
-	if err := db.Where("func_id=?", fun.FuncID).Delete(&Func{}).Error; err != nil {
+	if err := db.Model(&Func{}).Where("func_id=?", fun.FuncID).Delete(fun).Error; err != nil {
 		logger.Error("Failed to delete specific system function.", err)
 		return err
 	}
