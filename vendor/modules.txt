@@ -9,7 +9,15 @@ github.com/bjr3ady/gorm/dialects/mysql
 github.com/go-ini/ini
 # github.com/go-sql-driver/mysql v1.4.1
 github.com/go-sql-driver/mysql
+# github.com/gorilla/context v1.1.1
+github.com/gorilla/context
+# github.com/gorilla/mux v1.6.2
+github.com/gorilla/mux
 # github.com/jinzhu/inflection v1.0.0
 github.com/jinzhu/inflection
+# github.com/rs/cors v1.7.0
+github.com/rs/cors
+# github.com/unknwon/com v1.0.1
+github.com/unknwon/com
 # google.golang.org/appengine v1.4.0
 google.golang.org/appengine/cloudsql
