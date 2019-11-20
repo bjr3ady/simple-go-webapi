@@ -10,14 +10,15 @@ type Content struct {
 	Model
 	ContentID string `json:"content_id" gorm:"index"`
 	Content string `json:"content"`
-	SubCategory SubCategory `json:"sub_category"`
+	SubCategoryID string `json:"sub_category_id"`
+	SubCategory SubCategory `json:"sub_category" gorm:"association_foreignkey:sub_category_id"`
 	VideoSrc string `json:"video_src"`
 }
 
 //GetRelatedSubCategory query the specific sub-category of content
 func (content *Content) GetRelatedSubCategory() error {
 	subCate := &SubCategory {
-		SubCategoryID: content.SubCategory.SubCategoryID,
+		SubCategoryID: content.SubCategoryID,
 	}
 	if errSubCate := subCate.GetSingle(); errSubCate != nil {
 		logger.Error("Failed to find content related sub-category", errSubCate)
@@ -29,11 +30,8 @@ func (content *Content) GetRelatedSubCategory() error {
 
 //Create creates new content data.
 func (content *Content) Create() error {
-	if errCate := content.GetRelatedSubCategory(); errCate != nil {
-		return errCate
-	}
 	content.ContentID = util.GUID()
-	if err := content.Create(); err != nil {
+	if err := db.Create(&content).Error; err != nil {
 		logger.Error(err)
 	}
 	return nil
@@ -46,6 +44,48 @@ func (content *Content) GetSingle() error {
 	}
 	if err := db.Where("content_id = ?", content.ContentID).First(&content).Error; err != nil {
 		logger.Error("Failed to get specific content.", err)
+		return err
+	}
+	return nil
+}
+
+//GetSome query some contents with pagging
+func (Content) GetSome(pageNum, pageSize int, maps interface{}) (interface{}, error) {
+	var contents []Content
+	if err := db.Where(maps).Offset(pageNum).Limit(pageSize).Find(&contents).Error; err != nil {
+		logger.Error("Failed to query some contents with pagging", err)
+		return nil, err
+	}
+	return contents, nil
+}
+
+//GetTotal query the count of contents
+func (Content) GetTotal(maps interface{}) (int, error) {
+	var count int
+	if err := db.Model(&Content{}).Where(maps).Count(&count).Error; err != nil {
+		logger.Error("Failed to query the count of contents", err)
+		return -1, err
+	}
+	return count, nil
+}
+
+//Edit updates the specific content data
+func (content *Content) Edit() error {
+	if errSubCate := content.GetRelatedSubCategory(); errSubCate != nil {
+		logger.Error("Content's related sub-category invalid", errSubCate)
+		return errSubCate
+	}
+	if err := db.Model(&Content{}).Where("content_id = ?", content.ContentID).Updates(content).Error; err != nil {
+		logger.Error("Failed to update the specific content", err)
+		return err
+	}
+	return nil
+}
+
+//Delete deletes the specific content data
+func (content *Content) Delete() error {
+	if err := db.Where("content_id = ?", content.ContentID).Delete(content).Error; err != nil {
+		logger.Error("Failed to delete the specific content.", err)
 		return err
 	}
 	return nil
