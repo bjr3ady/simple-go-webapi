@@ -19,4 +19,5 @@ const (
 	REMOVE_FAILED                  = 3004
 	NO_FUNC_RECORD_FOUND           = 3005
 	NO_ROLE_RECORD_FOUND           = 3006
+	NO_CATEGORY_RECORD_FOUND       = 3007
 )

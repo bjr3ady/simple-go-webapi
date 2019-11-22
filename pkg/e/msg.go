@@ -20,6 +20,7 @@ var MsgFlags = map[int]string{
 	REMOVE_FAILED:                  "删除失败",
 	NO_FUNC_RECORD_FOUND:           "没有找到指定的SystemFunction",
 	NO_ROLE_RECORD_FOUND:           "没有找到指定的Role",
+	NO_CATEGORY_RECORD_FOUND:       "没有找到指定的Category",
 }
 
 //GetMsg get message conent by error code.

@@ -1,4 +1,4 @@
-package routers
+package router
 
 import (
 	"github.com/gorilla/mux"
@@ -35,4 +35,12 @@ func HandleAdmin(baseRouter *mux.Router) {
 	v1.HandleFunc("/role/{id}", controller.GetOneRole).Methods("GET")
 	v1.HandleFunc("/role/{id}", controller.UpdateRole).Methods("PUT")
 	v1.HandleFunc("/role/{id}", controller.DeleteRole).Methods("DELETE")
+
+	//Category web apis
+	v1.HandleFunc("/category/all", controller.GetAllCategories).Methods("GET")
+	v1.HandleFunc("/category/default", controller.GetDefaultCategory).Methods("GET")
+	v1.HandleFunc("/category", controller.CreateCategory).Methods("POST")
+	v1.HandleFunc("/category/{id}", controller.GetOneCategory).Methods("GET")
+	v1.HandleFunc("/category/{id}", controller.UpdateCategory).Methods("PUT")
+	v1.HandleFunc("/category/{id}", controller.DeleteCategory).Methods("DELETE")
 }

@@ -43,6 +43,9 @@ func (subCate *SubCategory) GetSingle() error {
 		logger.Error("Failed to query specific sub-category", err)
 		return err
 	}
+	if errCate := subCate.GetRelatedCategory(); errCate != nil {
+		return errCate
+	}
 	return nil
 }
 

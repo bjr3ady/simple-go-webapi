@@ -39,12 +39,12 @@ func (content *Content) Create() error {
 
 //GetSingle query the specific content data.
 func (content *Content) GetSingle() error {
-	if errCate := content.GetRelatedSubCategory(); errCate != nil {
-		return errCate
-	}
 	if err := db.Where("content_id = ?", content.ContentID).First(&content).Error; err != nil {
 		logger.Error("Failed to get specific content.", err)
 		return err
+	}
+	if errSubCate := content.GetRelatedSubCategory(); errSubCate != nil {
+		return errSubCate
 	}
 	return nil
 }
@@ -55,6 +55,12 @@ func (Content) GetSome(pageNum, pageSize int, maps interface{}) (interface{}, er
 	if err := db.Where(maps).Offset(pageNum).Limit(pageSize).Find(&contents).Error; err != nil {
 		logger.Error("Failed to query some contents with pagging", err)
 		return nil, err
+	}
+	for index, content := range contents {
+		if errSubCate := content.GetRelatedSubCategory(); errSubCate != nil {
+			return nil, errSubCate
+		}
+		contents[index] = content
 	}
 	return contents, nil
 }
@@ -71,10 +77,6 @@ func (Content) GetTotal(maps interface{}) (int, error) {
 
 //Edit updates the specific content data
 func (content *Content) Edit() error {
-	if errSubCate := content.GetRelatedSubCategory(); errSubCate != nil {
-		logger.Error("Content's related sub-category invalid", errSubCate)
-		return errSubCate
-	}
 	if err := db.Model(&Content{}).Where("content_id = ?", content.ContentID).Updates(content).Error; err != nil {
 		logger.Error("Failed to update the specific content", err)
 		return err

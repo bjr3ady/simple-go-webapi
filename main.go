@@ -13,7 +13,7 @@ import (
 	logger "github.com/bjr3ady/go-logger"
 	models "git.r3ady.com/golang/school-board/models/orm"
 	"git.r3ady.com/golang/school-board/pkg/setting"
-	"git.r3ady.com/golang/school-board/routers"
+	"git.r3ady.com/golang/school-board/router"
 	
 )
 
@@ -35,7 +35,7 @@ func main() {
 	}
 	logger.Info("Database connect success")
 
-	r := routers.InitRouter()
+	r := router.InitRouter()
 
 	srv := &http.Server{
 		Handler:        r,
