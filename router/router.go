@@ -22,6 +22,8 @@ func InitRouter() http.Handler {
 	r.HandleFunc("/service-info", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("API-Service"))
 	}).Methods("GET")
+
+	r.HandleFunc("/api/testtoken", controller.TestToken).Methods("POST")
 	
 	r.HandleFunc("/api/v1/admin/login", controller.LoginAdmin).Methods("POST")
 

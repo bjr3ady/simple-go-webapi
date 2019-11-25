@@ -30,7 +30,7 @@ func clearPreparedRoleFunc(t *testing.T) {
 func init() {
 	ConnectDb(setting.Cfg)
 	testAdmin = &Admin{
-		Name:        "testAdmin",
+		Name:        "admin",
 		Token:       util.GUID(),
 		TokenExpire: time.Now().Unix(),
 		Pwd:         "123",

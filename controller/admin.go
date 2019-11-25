@@ -203,3 +203,27 @@ func DeleteAdmin(w http.ResponseWriter, r *http.Request) {
 	res.Code = code
 	res.Response()
 }
+
+//TestT is the structure for test token json
+type TestT struct {
+	ID string `json:"id"`
+	Token string `json:"token"`
+	URL string `json:"url"`
+}
+//TestToken generate bearer token
+func TestToken(w http.ResponseWriter, r *http.Request) {
+	res := &JSONResponse{Writer: w}
+	reqBytes, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		res.Code = e.INVALID_PARAMS
+	} else {
+		auth := &TestT{}
+		if err := json.Unmarshal(reqBytes, &auth); err != nil {
+			res.Code = e.INVALID_PARAMS
+		} else {
+			res.Code = e.SUCCESS
+			res.Data = application.GenerateBearerToken(auth.ID, auth.Token, auth.URL)
+		}
+	}
+	res.Response()
+}

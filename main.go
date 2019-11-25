@@ -14,7 +14,6 @@ import (
 	models "git.r3ady.com/golang/school-board/models/orm"
 	"git.r3ady.com/golang/school-board/pkg/setting"
 	"git.r3ady.com/golang/school-board/router"
-	
 )
 
 func init() {
@@ -64,5 +63,6 @@ func main() {
 
 	srv.Shutdown(ctx)
 	logger.Fatal("shutting down...")
+	models.CloseDB()
 	os.Exit(0)
 }

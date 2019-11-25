@@ -6,7 +6,7 @@ import (
 	"net/url"
 
 	"git.r3ady.com/golang/school-board/pkg/e"
-	"github.com/bjr3ady/go-logger"
+	logger "github.com/bjr3ady/go-logger"
 	"github.com/gorilla/mux"
 )
 
@@ -21,6 +21,7 @@ type JSONResponse struct {
 //Response write json response to http pipline.
 func (jr *JSONResponse) Response() {
 	jr.Msg = e.GetMsg(jr.Code)
+	jr.Writer.Header().Set("Content-Type", "application/json")
 	jr.Writer.WriteHeader(http.StatusOK)
 	if err := json.NewEncoder(jr.Writer).Encode(jr); err != nil {
 		logger.Error("Failed to encode json response:", err)
