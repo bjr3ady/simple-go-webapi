@@ -56,4 +56,11 @@ func HandleAdmin(baseRouter *mux.Router) {
 	v1.HandleFunc("/subcategory/byname/{name}", controller.GetSubCategoryByName).Methods("GET")
 	v1.HandleFunc("/subcategory/{id}", controller.UpdateSubCategory).Methods("PUT")
 	v1.HandleFunc("/subcategory/{id}", controller.DeleteSubCategory).Methods("DELETE")
+
+	//Content web apis
+	v1.HandleFunc("/content/all", controller.GetAllContents).Methods("GET")
+	v1.HandleFunc("/content", controller.CreateContent).Methods("POST")
+	v1.HandleFunc("/content/{id}", controller.GetOneContent).Methods("GET")
+	v1.HandleFunc("/content/{id}", controller.UpdateContent).Methods("PUT")
+	v1.HandleFunc("/content/{id}", controller.DeleteContent).Methods("DELETE")
 }
