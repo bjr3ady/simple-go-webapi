@@ -70,4 +70,11 @@ func HandleAdmin(baseRouter *mux.Router) {
 	v1.HandleFunc("/item/{id}", controller.GetOneItem).Methods("GET")
 	v1.HandleFunc("/item/{id}", controller.UpdateItem).Methods("PUT")
 	v1.HandleFunc("/item/{id}", controller.DeleteItem).Methods("DELETE")
+
+	//Home web apis
+	v1.HandleFunc("/home/all", controller.GetAllHomes).Methods("GET")
+	v1.HandleFunc("/home", controller.CreateHome).Methods("POST")
+	v1.HandleFunc("/home/{id}", controller.GetOneHome).Methods("GET")
+	v1.HandleFunc("/home/{id}", controller.UpdateHome).Methods("PUT")
+	v1.HandleFunc("/home/{id}", controller.DeleteHome).Methods("DELETE")
 }
