@@ -21,6 +21,7 @@ var MsgFlags = map[int]string{
 	NO_FUNC_RECORD_FOUND:           "没有找到指定的SystemFunction",
 	NO_ROLE_RECORD_FOUND:           "没有找到指定的Role",
 	NO_CATEGORY_RECORD_FOUND:       "没有找到指定的Category",
+	NO_SUB_CATEGORY_RECORD_FOUND:   "没有找到指定的Sub-Category",
 }
 
 //GetMsg get message conent by error code.

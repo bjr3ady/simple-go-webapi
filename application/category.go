@@ -21,9 +21,17 @@ func GetDefaultCategory() (*models.Category) {
 
 //GetCategoryByID gets the ID specific category model.
 func GetCategoryByID(cateID string) (*models.Category, error) {
-	cate := &models.Category{}
-	cate.CategoryID = cateID
+	cate := &models.Category{CategoryID: cateID}
 	if err := cate.GetSingle(); err != nil {
+		return &models.Category{}, err
+	}
+	return cate, nil
+}
+
+//GetCategoryByName gets the name specific category model
+func GetCategoryByName(cateName string) (*models.Category, error) {
+	cate := &models.Category{Name: cateName}
+	if err := cate.GetByName(); err != nil {
 		return &models.Category{}, err
 	}
 	return cate, nil
@@ -35,12 +43,12 @@ func QueryCategories(startIndex, count int, maps interface{}) ([]models.Category
 	cate := &models.Category{}
 	result, err := cate.GetSome(startIndex, count, maps)
 	if err != nil {
-		return cates, err
+		return nil, err
 	}
 	cates, ok := result.([]models.Category)
 	if !ok {
 		err = errors.New("failed to cast query result to category models")
-		return cates, err
+		return nil, err
 	}
 	return cates, nil
 }

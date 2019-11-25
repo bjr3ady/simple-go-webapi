@@ -8,13 +8,13 @@ import (
 	"github.com/unknwon/com"
 
 	logger "github.com/bjr3ady/go-logger"
-	
-	models "git.r3ady.com/golang/school-board/models/orm"
+
 	"git.r3ady.com/golang/school-board/application"
+	models "git.r3ady.com/golang/school-board/models/orm"
 	"git.r3ady.com/golang/school-board/pkg/e"
 )
 
-//GetOneAdmin get specific admin
+//GetOneAdmin get id specific admin
 func GetOneAdmin(w http.ResponseWriter, r *http.Request) {
 	adminID := reqID(r)
 	res := &JSONResponse{Writer: w}
@@ -23,6 +23,25 @@ func GetOneAdmin(w http.ResponseWriter, r *http.Request) {
 		code = e.INVALID_PARAMS
 	} else {
 		admin, err := application.GetAdminByID(adminID)
+		if err != nil {
+			code = e.NO_ADMIN_RECORD_FOUND
+		} else {
+			res.Data = admin
+		}
+	}
+	res.Code = code
+	res.Response()
+}
+
+//GetAdminByName get name specific admin data
+func GetAdminByName(w http.ResponseWriter, r *http.Request) {
+	name := reqName(r)
+	res := &JSONResponse{Writer: w}
+	code := e.SUCCESS
+	if name == "" {
+		code = e.INVALID_PARAMS
+	} else {
+		admin, err := application.GetAdminByName(name)
 		if err != nil {
 			code = e.NO_ADMIN_RECORD_FOUND
 		} else {

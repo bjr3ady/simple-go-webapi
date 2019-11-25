@@ -42,6 +42,26 @@ func GetOneCategory(w http.ResponseWriter, r *http.Request) {
 	res.Response()
 }
 
+//GetCategoryByName get specific category data by name
+func GetCategoryByName(w http.ResponseWriter, r *http.Request) {
+	name := reqName(r)
+
+	res := &JSONResponse{Writer: w}
+	code := e.SUCCESS
+
+	if name == "" {
+		code = e.INVALID_PARAMS
+	} else {
+		if cate, err := application.GetCategoryByName(name); err != nil {
+			code = e.NO_CATEGORY_RECORD_FOUND
+		} else {
+			res.Data= cate
+		}
+	}
+	res.Code = code
+	res.Response()
+}
+
 //GetAllCategories get all categories by pagging
 func GetAllCategories(w http.ResponseWriter, r *http.Request) {
 	params := getURLParams(r)
@@ -77,11 +97,12 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 	} else {
 		category := models.Category{}
 		if err = json.Unmarshal(reqBytes, &category); err != nil {
-			logger.Error("Failed to unmarshal admin parameters:", err)
+			logger.Error("Failed to unmarshal category parameters:", err)
 			code = e.INVALID_PARAMS
 		} else {
 			if err = application.NewCategory(category.Name, category.Icon, category.BannerBgColor, category.Thumb); err != nil {
 				code = e.CREATE_FAILED
+				res.Data = false
 			} else {
 				res.Data = true
 			}

@@ -27,7 +27,7 @@ func GetDefaultFunc(w http.ResponseWriter, r *http.Request) {
 	res.Response()
 }
 
-//GetOneFunc get specific system function
+//GetOneFunc get id specific system function
 func GetOneFunc(w http.ResponseWriter, r *http.Request) {
 	funcID := reqID(r)
 	res := &JSONResponse{Writer: w}
@@ -40,6 +40,25 @@ func GetOneFunc(w http.ResponseWriter, r *http.Request) {
 			code = e.NO_FUNC_RECORD_FOUND
 		} else {
 			res.Data = funcm
+		}
+	}
+	res.Code = code
+	res.Response()
+}
+
+//GetFuncByName get name specific system function data
+func GetFuncByName(w http.ResponseWriter, r *http.Request) {
+	name := reqName(r)
+	code := e.SUCCESS
+	res := &JSONResponse{Writer: w}
+	if name == "" {
+		code = e.INVALID_PARAMS
+	} else {
+		fun, err := application.GetFuncByName(name)
+		if err != nil {
+			code = e.NO_FUNC_RECORD_FOUND
+		} else {
+			res.Data = fun
 		}
 	}
 	res.Code = code

@@ -32,6 +32,11 @@ func reqID(r *http.Request) string {
 	return vars["id"]
 }
 
+func reqName(r *http.Request) string {
+	vars := mux.Vars(r)
+	return vars["name"]
+}
+
 func getURLParams(r *http.Request) url.Values {
 	uq, _ := url.Parse(r.URL.String())
 	params, _ := url.ParseQuery(uq.RawQuery)

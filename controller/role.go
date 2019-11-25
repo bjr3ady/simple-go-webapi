@@ -27,7 +27,7 @@ func GetDefaultRole(w http.ResponseWriter, r *http.Request) {
 	res.Response()
 }
 
-//GetOneRole gets specific role
+//GetOneRole gets the id specific role data
 func GetOneRole(w http.ResponseWriter, r *http.Request) {
 	roleID := reqID(r)
 	res := &JSONResponse{Writer: w}
@@ -38,6 +38,25 @@ func GetOneRole(w http.ResponseWriter, r *http.Request) {
 		role, err := application.GetRoleByID(roleID)
 		if err != nil {
 			code = e.NO_ROLE_RECORD_FOUND
+		} else {
+			res.Data = role
+		}
+	}
+	res.Code = code
+	res.Response()
+}
+
+//GetRoleByName gets the name specific role data
+func GetRoleByName(w http.ResponseWriter, r *http.Request) {
+	name := reqName(r)
+	code := e.SUCCESS
+	res := &JSONResponse{Writer: w}
+	if name == "" {
+		code = e.INVALID_PARAMS
+	} else {
+		role, err := application.GetRoleByName(name)
+		if err != nil {
+			code = e.NO_FUNC_RECORD_FOUND
 		} else {
 			res.Data = role
 		}

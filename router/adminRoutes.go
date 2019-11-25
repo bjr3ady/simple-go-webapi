@@ -16,6 +16,7 @@ func HandleAdmin(baseRouter *mux.Router) {
 	v1.HandleFunc("/admin/all", controller.GetAllAdmins).Methods("GET")
 	v1.HandleFunc("/admin", controller.CreateAdmin).Methods("POST")
 	v1.HandleFunc("/admin/{id}", controller.GetOneAdmin).Methods("GET")
+	v1.HandleFunc("/admin/byname/{name}", controller.GetAdminByName).Methods("GET")
 	v1.HandleFunc("/admin/{id}", controller.UpdateAdmin).Methods("PUT")
 	v1.HandleFunc("/admin/pwd/{id}", controller.UpdateAdminPassword).Methods("PUT")
 	v1.HandleFunc("/admin/{id}", controller.DeleteAdmin).Methods("DELETE")
@@ -25,6 +26,7 @@ func HandleAdmin(baseRouter *mux.Router) {
 	v1.HandleFunc("/function/default", controller.GetDefaultFunc).Methods("GET")
 	v1.HandleFunc("/function", controller.CreateFunc).Methods("POST")
 	v1.HandleFunc("/function/{id}", controller.GetOneFunc).Methods("GET")
+	v1.HandleFunc("/function/byname/{name}", controller.GetFuncByName).Methods("GET")
 	v1.HandleFunc("/function/{id}", controller.UpdateFunc).Methods("PUT")
 	v1.HandleFunc("/function/{id}", controller.DeleteFunc).Methods("DELETE")
 
@@ -33,6 +35,7 @@ func HandleAdmin(baseRouter *mux.Router) {
 	v1.HandleFunc("/role/default", controller.GetDefaultRole).Methods("GET")
 	v1.HandleFunc("/role", controller.CreateRole).Methods("POST")
 	v1.HandleFunc("/role/{id}", controller.GetOneRole).Methods("GET")
+	v1.HandleFunc("/role/byname/{name}", controller.GetRoleByName).Methods("GET")
 	v1.HandleFunc("/role/{id}", controller.UpdateRole).Methods("PUT")
 	v1.HandleFunc("/role/{id}", controller.DeleteRole).Methods("DELETE")
 
@@ -41,6 +44,16 @@ func HandleAdmin(baseRouter *mux.Router) {
 	v1.HandleFunc("/category/default", controller.GetDefaultCategory).Methods("GET")
 	v1.HandleFunc("/category", controller.CreateCategory).Methods("POST")
 	v1.HandleFunc("/category/{id}", controller.GetOneCategory).Methods("GET")
+	v1.HandleFunc("/category/byname/{name}", controller.GetCategoryByName).Methods("GET")
 	v1.HandleFunc("/category/{id}", controller.UpdateCategory).Methods("PUT")
 	v1.HandleFunc("/category/{id}", controller.DeleteCategory).Methods("DELETE")
+
+	//SubCategory web apis
+	v1.HandleFunc("/subcategory/all", controller.GetAllSubCategories).Methods("GET")
+	v1.HandleFunc("/subcategory/default", controller.GetDefaultSubCategory).Methods("GET")
+	v1.HandleFunc("/subcategory", controller.CreateSubCategory).Methods("POST")
+	v1.HandleFunc("/subcategory/{id}", controller.GetOneSubCategory).Methods("GET")
+	v1.HandleFunc("/subcategory/byname/{name}", controller.GetSubCategoryByName).Methods("GET")
+	v1.HandleFunc("/subcategory/{id}", controller.UpdateSubCategory).Methods("PUT")
+	v1.HandleFunc("/subcategory/{id}", controller.DeleteSubCategory).Methods("DELETE")
 }
