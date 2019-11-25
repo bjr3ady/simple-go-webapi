@@ -47,7 +47,7 @@ func QuerySubCategories(startIndex, count int, maps interface{}) ([]models.SubCa
 	subCates, ok := result.([]models.SubCategory)
 	if !ok {
 		err = errors.New("failed to cast query result to sub-category collection")
-		logger.Error(err)
+		logger.Info(err)
 		return nil, err
 	}
 	return subCates, nil
@@ -77,6 +77,12 @@ func EditSubCategory(subCateID, name, cateID string) error {
 	if hasName {
 		err := errors.New("name of sub-category already exists")
 		logger.Error(err)
+		return err
+	}
+	cate := &models.Category{CategoryID: cateID}
+	if errCate := cate.GetSingle(); errCate != nil {
+		err := errors.New("no related category found while update sub-category")
+		logger.Info(err)
 		return err
 	}
 	subCate := &models.SubCategory{SubCategoryID: subCateID}

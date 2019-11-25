@@ -22,6 +22,9 @@ var MsgFlags = map[int]string{
 	NO_ROLE_RECORD_FOUND:           "没有找到指定的Role",
 	NO_CATEGORY_RECORD_FOUND:       "没有找到指定的Category",
 	NO_SUB_CATEGORY_RECORD_FOUND:   "没有找到指定的Sub-Category",
+	NO_CONTENT_RECORD_FOUND:        "没有找到指定的Content",
+	NO_ITEM_RECORD_FOUND:           "没有找到指定的Item",
+	NO_HOME_RECORD_FOUND:           "没有找到指定的Home",
 }
 
 //GetMsg get message conent by error code.

@@ -56,4 +56,25 @@ func HandleAdmin(baseRouter *mux.Router) {
 	v1.HandleFunc("/subcategory/byname/{name}", controller.GetSubCategoryByName).Methods("GET")
 	v1.HandleFunc("/subcategory/{id}", controller.UpdateSubCategory).Methods("PUT")
 	v1.HandleFunc("/subcategory/{id}", controller.DeleteSubCategory).Methods("DELETE")
+
+	//Content web apis
+	v1.HandleFunc("/content/all", controller.GetAllContents).Methods("GET")
+	v1.HandleFunc("/content", controller.CreateContent).Methods("POST")
+	v1.HandleFunc("/content/{id}", controller.GetOneContent).Methods("GET")
+	v1.HandleFunc("/content/{id}", controller.UpdateContent).Methods("PUT")
+	v1.HandleFunc("/content/{id}", controller.DeleteContent).Methods("DELETE")
+
+	//Item web apis
+	v1.HandleFunc("/item/all", controller.GetAllItems).Methods("GET")
+	v1.HandleFunc("/item", controller.CreateItem).Methods("POST")
+	v1.HandleFunc("/item/{id}", controller.GetOneItem).Methods("GET")
+	v1.HandleFunc("/item/{id}", controller.UpdateItem).Methods("PUT")
+	v1.HandleFunc("/item/{id}", controller.DeleteItem).Methods("DELETE")
+
+	//Home web apis
+	v1.HandleFunc("/home/all", controller.GetAllHomes).Methods("GET")
+	v1.HandleFunc("/home", controller.CreateHome).Methods("POST")
+	v1.HandleFunc("/home/{id}", controller.GetOneHome).Methods("GET")
+	v1.HandleFunc("/home/{id}", controller.UpdateHome).Methods("PUT")
+	v1.HandleFunc("/home/{id}", controller.DeleteHome).Methods("DELETE")
 }
