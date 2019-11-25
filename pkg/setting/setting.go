@@ -49,8 +49,8 @@ func loadServer() {
 	}
 	HTTPPort = sec.Key("HTTP_PORT").MustInt(8000)
 	HTTPProto = sec.Key("HTTP_PROTO").MustString("http")
-	ReadTimeout = time.Duration(sec.Key("READ_TIMEOUT").MustInt(60))
-	WriteTimeout = time.Duration(sec.Key("WRITE_TIMEOUT").MustInt(60))
+	ReadTimeout = time.Duration(sec.Key("READ_TIMEOUT").MustInt(60)) * time.Second
+	WriteTimeout = time.Duration(sec.Key("WRITE_TIMEOUT").MustInt(60)) * time.Second
 }
 
 func loadApp() {

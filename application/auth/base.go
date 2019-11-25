@@ -25,10 +25,14 @@ type Authler interface {
 	Auth() (bool, error)
 }
 
-func generateBearerToken(token, ID string, req *http.Request) string {
-	URL := fmt.Sprintf("%s://%s%s", setting.HTTPProto, req.Host, req.URL.String())
+func GenerateBearerToken(token, ID, URL string) string {
 	targetString := fmt.Sprintf("%s,%s,%s", URL, ID, token)
 	data := []byte(targetString)
 	has := md5.Sum(data)
 	return fmt.Sprintf("%x", has)
+}
+
+func generateBearerToken(token, ID string, req *http.Request) string {
+	URL := fmt.Sprintf("%s://%s%s", setting.HTTPProto, req.Host, req.URL.String())
+	return GenerateBearerToken(token, ID, URL)
 }
