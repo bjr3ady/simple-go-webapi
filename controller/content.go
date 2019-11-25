@@ -69,12 +69,10 @@ func GetOneContent(w http.ResponseWriter, r *http.Request) {
 	res := &JSONResponse{Writer: w}
 	if contentID == "" {
 		code = e.INVALID_PARAMS
-		res.Data = false
 	} else {
 		content := &models.Content{ContentID: contentID}
 		if err := content.GetSingle(); err != nil {
 			code = e.NO_SUB_CATEGORY_RECORD_FOUND
-			res.Data = false
 		} else {
 			res.Data = content
 		}
