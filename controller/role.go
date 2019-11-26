@@ -82,7 +82,12 @@ func GetAllRoles(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			code = e.ERROR
 		} else {
-			res.Data = records
+			count, err := application.TotalRoles("")
+			if err != nil {
+				code = e.GET_TOTAL_FAILED
+			} else {
+				res.Data = &CollectionResult{Collection: records, Count: count}
+			}
 		}
 	}
 	res.Code = code

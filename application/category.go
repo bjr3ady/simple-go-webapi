@@ -53,6 +53,12 @@ func QueryCategories(startIndex, count int, maps interface{}) ([]models.Category
 	return cates, nil
 }
 
+//TotalCategories get the count of all categories
+func TotalCategories(maps interface{}) (int, error) {
+	cate := &models.Category{}
+	return cate.GetTotal(maps)
+}
+
 //CategoryHasName determines the specific category name already exists.
 func CategoryHasName(name string) (bool, error) {
 	cate := &models.Category{Name: name}

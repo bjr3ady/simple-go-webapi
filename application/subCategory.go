@@ -53,6 +53,12 @@ func QuerySubCategories(startIndex, count int, maps interface{}) ([]models.SubCa
 	return subCates, nil
 }
 
+//TotalSubCategories query the count of sub-categories
+func TotalSubCategories(maps interface{}) (int, error) {
+	subCate := &models.SubCategory{}
+	return subCate.GetTotal(maps)
+}
+
 //SubCategoryHasName determines the specific name of sub-category already exists.
 func SubCategoryHasName(name string) (bool, error) {
 	subCata := &models.SubCategory{Name: name}

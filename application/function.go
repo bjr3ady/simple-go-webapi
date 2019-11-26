@@ -95,11 +95,7 @@ func QueryFuncs(pageIndex, pageSize int, where interface{}) ([]models.Func, erro
 //TotalFuncs get total number of system function models.
 func TotalFuncs(where interface{}) (int, error) {
 	funcModel = &models.Func{}
-	count, err := funcModel.GetTotal(where)
-	if err != nil {
-		return -1, err
-	}
-	return count, nil
+	return funcModel.GetTotal(where)
 }
 
 //EditFunc modify name of system function model.

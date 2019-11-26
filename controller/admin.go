@@ -70,7 +70,12 @@ func GetAllAdmins(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			code = e.ERROR
 		} else {
-			res.Data = records
+			count, err := application.TotalAdmins("")
+			if err != nil {
+				code = e.GET_TOTAL_FAILED
+			} else {
+				res.Data = &CollectionResult{Collection: records, Count: count}
+			}
 		}
 	}
 	res.Code = code
@@ -206,10 +211,11 @@ func DeleteAdmin(w http.ResponseWriter, r *http.Request) {
 
 //TestT is the structure for test token json
 type TestT struct {
-	ID string `json:"id"`
+	ID    string `json:"id"`
 	Token string `json:"token"`
-	URL string `json:"url"`
+	URL   string `json:"url"`
 }
+
 //TestToken generate bearer token
 func TestToken(w http.ResponseWriter, r *http.Request) {
 	res := &JSONResponse{Writer: w}

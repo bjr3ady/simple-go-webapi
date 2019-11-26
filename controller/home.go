@@ -30,7 +30,12 @@ func GetAllHomes(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			code = e.NO_HOME_RECORD_FOUND
 		} else {
-			res.Data = records
+			count, err := application.TotalHomes("")
+			if err != nil {
+				code = e.GET_TOTAL_FAILED
+			} else {
+				res.Data = &CollectionResult{Collection: records, Count: count}
+			}
 		}
 	}
 	res.Code = code

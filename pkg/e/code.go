@@ -24,4 +24,5 @@ const (
 	NO_CONTENT_RECORD_FOUND        = 3009
 	NO_ITEM_RECORD_FOUND           = 3010
 	NO_HOME_RECORD_FOUND           = 3011
+	GET_TOTAL_FAILED               = 3012
 )
