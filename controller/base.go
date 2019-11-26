@@ -10,6 +10,12 @@ import (
 	"github.com/gorilla/mux"
 )
 
+//CollectionResult is the type of collection query result
+type CollectionResult struct {
+	Collection interface{} `json:"collection"`
+	Count int `json:"count"`
+}
+
 //JSONResponse is the common type of RESTful api response data strcut.
 type JSONResponse struct {
 	Code   int         `json:"code"`

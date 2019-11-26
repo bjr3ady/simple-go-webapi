@@ -25,6 +25,12 @@ func QueryItems(startIndex, count int, maps interface{}) ([]models.Item, error) 
 	return items, nil
 }
 
+//TotalItems query the count of items
+func TotalItems(maps interface{}) (int, error) {
+	item := &models.Item{}
+	return item.GetTotal(maps)
+}
+
 //NewItem creates new item model
 func NewItem(name, link, subCateID string, index int) error {
 	if name == "" || link == "" || subCateID == "" {

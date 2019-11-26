@@ -36,6 +36,12 @@ func QueryContents(startIndex, count int, maps string) ([]models.Content, error)
 	return contents, nil
 }
 
+//TotalContents query the count of contents
+func TotalContents(maps interface{}) (int, error) {
+	content := &models.Content{}
+	return content.GetTotal(maps)
+}
+
 //NewContent creates new content model
 func NewContent(content, subCateID, videoSrc string) error {
 	if content == "" {

@@ -4,8 +4,8 @@ import (
 	"errors"
 	"time"
 
-	models "git.r3ady.com/golang/school-board/models/orm"
 	"git.r3ady.com/golang/school-board/application/auth"
+	models "git.r3ady.com/golang/school-board/models/orm"
 	logger "github.com/bjr3ady/go-logger"
 	util "github.com/bjr3ady/go-util"
 )
@@ -150,11 +150,7 @@ func QueryAdmins(pageIndex, pageSize int, where interface{}) ([]models.Admin, er
 //TotalAdmins get total number of admin models.
 func TotalAdmins(where interface{}) (int, error) {
 	adminModel = &models.Admin{}
-	count, err := adminModel.GetTotal(where)
-	if err != nil {
-		return -1, err
-	}
-	return count, nil
+	return adminModel.GetTotal(where)
 }
 
 //EditAdmin modify name, roles of admin model.

@@ -25,6 +25,12 @@ func QueryHomes(startIndex, count int, maps interface{}) ([]models.Home, error) 
 	return homes, nil
 }
 
+//TotalHomes query the count of home items
+func TotalHomes(maps interface{}) (int, error) {
+	home := &models.Home{}
+	return home.GetTotal(maps)
+}
+
 //NewHome create new home item
 func NewHome(cateID, link string, index, sizeMode, isDirectLink int) error {
 	if cateID == "" || link == "" {

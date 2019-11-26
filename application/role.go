@@ -101,11 +101,7 @@ func QueryRoles(pageIndex, pageNum int, where interface{}) ([]models.Role, error
 //TotalRoles get total number of role models.
 func TotalRoles(where interface{}) (int, error) {
 	roleModel = &models.Role{}
-	count, err := roleModel.GetTotal(where)
-	if err != nil {
-		return -1, err
-	}
-	return count, nil
+	return roleModel.GetTotal(where)
 }
 
 //EditRole modify name, functions of role model.

@@ -29,7 +29,12 @@ func GetAllItems(w http.ResponseWriter, r *http.Request) {
 		if records, err := application.QueryItems(startIndex, count, ""); err != nil {
 			code = e.NO_SUB_CATEGORY_RECORD_FOUND
 		} else {
-			res.Data = records
+			count, err := application.TotalItems("")
+			if err != nil {
+				code = e.GET_TOTAL_FAILED
+			} else {
+				res.Data = &CollectionResult{Collection: records, Count: count}
+			}
 		}
 	}
 	res.Code = code

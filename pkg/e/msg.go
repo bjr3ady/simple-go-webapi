@@ -18,6 +18,7 @@ var MsgFlags = map[int]string{
 	CREATE_FAILED:                  "创建失败",
 	UPDATE_FAILED:                  "更新失败",
 	REMOVE_FAILED:                  "删除失败",
+	GET_TOTAL_FAILED: "获取总数失败",
 	NO_FUNC_RECORD_FOUND:           "没有找到指定的SystemFunction",
 	NO_ROLE_RECORD_FOUND:           "没有找到指定的Role",
 	NO_CATEGORY_RECORD_FOUND:       "没有找到指定的Category",
