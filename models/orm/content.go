@@ -21,7 +21,7 @@ func (content *Content) GetRelatedSubCategory() error {
 		SubCategoryID: content.SubCategoryID,
 	}
 	if errSubCate := subCate.GetSingle(); errSubCate != nil {
-		logger.Error("Failed to find content related sub-category", errSubCate)
+		logger.Info("Failed to find content related sub-category", errSubCate)
 		return errSubCate
 	}
 	content.SubCategory = *subCate
@@ -32,7 +32,7 @@ func (content *Content) GetRelatedSubCategory() error {
 func (content *Content) Create() error {
 	content.ContentID = util.GUID()
 	if err := db.Create(&content).Error; err != nil {
-		logger.Error(err)
+		logger.Info(err)
 	}
 	return nil
 }
@@ -40,7 +40,7 @@ func (content *Content) Create() error {
 //GetSingle query the specific content data.
 func (content *Content) GetSingle() error {
 	if err := db.Where("content_id = ?", content.ContentID).First(&content).Error; err != nil {
-		logger.Error("Failed to get specific content.", err)
+		logger.Info("Failed to get specific content.", err)
 		return err
 	}
 	if errSubCate := content.GetRelatedSubCategory(); errSubCate != nil {
@@ -53,7 +53,7 @@ func (content *Content) GetSingle() error {
 func (Content) GetSome(pageNum, pageSize int, maps interface{}) (interface{}, error) {
 	var contents []Content
 	if err := db.Where(maps).Offset(pageNum).Limit(pageSize).Find(&contents).Error; err != nil {
-		logger.Error("Failed to query some contents with pagging", err)
+		logger.Info("Failed to query some contents with pagging", err)
 		return nil, err
 	}
 	for index, content := range contents {
@@ -69,7 +69,7 @@ func (Content) GetSome(pageNum, pageSize int, maps interface{}) (interface{}, er
 func (Content) GetTotal(maps interface{}) (int, error) {
 	var count int
 	if err := db.Model(&Content{}).Where(maps).Count(&count).Error; err != nil {
-		logger.Error("Failed to query the count of contents", err)
+		logger.Info("Failed to query the count of contents", err)
 		return -1, err
 	}
 	return count, nil
@@ -78,7 +78,7 @@ func (Content) GetTotal(maps interface{}) (int, error) {
 //Edit updates the specific content data
 func (content *Content) Edit() error {
 	if err := db.Model(&Content{}).Where("content_id = ?", content.ContentID).Updates(content).Error; err != nil {
-		logger.Error("Failed to update the specific content", err)
+		logger.Info("Failed to update the specific content", err)
 		return err
 	}
 	return nil
@@ -87,7 +87,7 @@ func (content *Content) Edit() error {
 //Delete deletes the specific content data
 func (content *Content) Delete() error {
 	if err := db.Where("content_id = ?", content.ContentID).Delete(content).Error; err != nil {
-		logger.Error("Failed to delete the specific content.", err)
+		logger.Info("Failed to delete the specific content.", err)
 		return err
 	}
 	return nil

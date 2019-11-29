@@ -102,7 +102,7 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 	} else {
 		category := models.Category{}
 		if err = json.Unmarshal(reqBytes, &category); err != nil {
-			logger.Error("Failed to unmarshal category parameters:", err)
+			logger.Info("Failed to unmarshal category parameters:", err)
 			code = e.INVALID_PARAMS
 		} else {
 			if err = application.NewCategory(category.Name, category.Icon, category.BannerBgColor, category.Thumb); err != nil {
@@ -129,7 +129,7 @@ func UpdateCategory(w http.ResponseWriter, r *http.Request) {
 	} else {
 		cate := &models.Category{}
 		if err = json.Unmarshal(reqBytes, &cate); err != nil {
-			logger.Error("Failed to unmarshal category parameters", err)
+			logger.Info("Failed to unmarshal category parameters", err)
 			code = e.INVALID_PARAMS
 		} else {
 			if err = application.EditCategory(cateID, cate.Name, cate.Icon, cate.BannerBgColor, cate.Thumb); err != nil {

@@ -70,7 +70,7 @@ func NewCategory(name, icon, bannerBgColor, thumb string) error {
 	hasName, _ := CategoryHasName(name)
 	if hasName {
 		err := errors.New("name of category already exists")
-		logger.Error(err)
+		logger.Info(err)
 		return err
 	}
 	cate := &models.Category{

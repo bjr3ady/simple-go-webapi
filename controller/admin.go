@@ -92,7 +92,7 @@ func CreateAdmin(w http.ResponseWriter, r *http.Request) {
 	} else {
 		admin := models.Admin{}
 		if err = json.Unmarshal(reqBytes, &admin); err != nil {
-			logger.Error("Failed to unmarshal admin parameters:", err)
+			logger.Info("Failed to unmarshal admin parameters:", err)
 			code = e.INVALID_PARAMS
 		} else {
 			if err = application.NewAdmin(admin.Name, admin.Pwd); err != nil {
@@ -117,7 +117,7 @@ func LoginAdmin(w http.ResponseWriter, r *http.Request) {
 	} else {
 		admin := models.Admin{}
 		if err = json.Unmarshal(reqBytes, &admin); err != nil {
-			logger.Error("Failed to unmarshal admin parameters:", err)
+			logger.Info("Failed to unmarshal admin parameters:", err)
 			code = e.INVALID_PARAMS
 		} else {
 			token, err := application.LoginAdmin(admin.Name, admin.Pwd)
@@ -144,7 +144,7 @@ func UpdateAdmin(w http.ResponseWriter, r *http.Request) {
 	} else {
 		admin := models.Admin{}
 		if err = json.Unmarshal(reqBytes, &admin); err != nil {
-			logger.Error("Failed to unmarshal admin parameters:", err)
+			logger.Info("Failed to unmarshal admin parameters:", err)
 			code = e.INVALID_PARAMS
 		} else {
 			roleIDs := []string{}
@@ -175,7 +175,7 @@ func UpdateAdminPassword(w http.ResponseWriter, r *http.Request) {
 	} else {
 		adminPwd := application.PasswordChange{}
 		if err := json.Unmarshal(reqBytes, &adminPwd); err != nil {
-			logger.Error("Failed to unmarshal admin password change parameters:", err)
+			logger.Info("Failed to unmarshal admin password change parameters:", err)
 			code = e.INVALID_PARAMS
 		} else {
 			if err := application.UpdateAdminPassword(adminID, adminPwd.OriginalPwd, adminPwd.NewPwd); err != nil {

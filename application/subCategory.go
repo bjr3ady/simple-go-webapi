@@ -70,7 +70,7 @@ func NewSubCategory(name, cateID string) error {
 	hasName, _ := SubCategoryHasName(name)
 	if hasName {
 		err := errors.New("name of sub-category already exists")
-		logger.Error(err)
+		logger.Info(err)
 		return err
 	}
 	subCate := &models.SubCategory{Name: name, CategoryID: cateID}
@@ -82,7 +82,7 @@ func EditSubCategory(subCateID, name, cateID string) error {
 	hasName, _ := SubCategoryHasName(name)
 	if hasName {
 		err := errors.New("name of sub-category already exists")
-		logger.Error(err)
+		logger.Info(err)
 		return err
 	}
 	cate := &models.Category{CategoryID: cateID}

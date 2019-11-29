@@ -19,7 +19,7 @@ type Category struct {
 func (cate *Category) Create() error {
 	cate.CategoryID = util.GUID()
 	if err := db.Create(&cate).Error; err != nil {
-		logger.Error("Failed to create new category", err)
+		logger.Info("Failed to create new category", err)
 		return err
 	}
 	return nil
@@ -28,7 +28,7 @@ func (cate *Category) Create() error {
 //GetSingle query the specific category data
 func (cate *Category) GetSingle() error {
 	if err := db.Where("category_id = ?", cate.CategoryID).First(&cate).Error; err != nil {
-		logger.Error("Failed to query specific category", err)
+		logger.Info("Failed to query specific category", err)
 		return err
 	}
 	return nil
@@ -38,7 +38,7 @@ func (cate *Category) GetSingle() error {
 func (Category) GetSome(pageNum, pageSize int, maps interface{}) (interface{}, error) {
 	var categories []Category
 	if err := db.Where(maps).Offset(pageNum).Limit(pageSize).Find(&categories).Error; err != nil {
-		logger.Error("Failed to get some categories", err)
+		logger.Info("Failed to get some categories", err)
 		return nil, err
 	}
 	return categories, nil
@@ -48,7 +48,7 @@ func (Category) GetSome(pageNum, pageSize int, maps interface{}) (interface{}, e
 func (Category) GetTotal(maps interface{}) (int, error) {
 	var count int
 	if err := db.Model(&Category{}).Where(maps).Count(&count).Error; err != nil {
-		logger.Error("Failed to query count of categories", err)
+		logger.Info("Failed to query count of categories", err)
 		return -1, err
 	}
 	return count, nil
@@ -57,7 +57,7 @@ func (Category) GetTotal(maps interface{}) (int, error) {
 //HasName determines if specific name of category exists
 func (cate *Category) HasName() (bool, error) {
 	if err := db.Where("name = ?", cate.Name).First(&cate).Error; err != nil {
-		logger.Error("Failed to find specific name of category", err)
+		logger.Info("Failed to find specific name of category", err)
 		return false, err
 	}
 	return cate.CategoryID != "", nil
@@ -66,7 +66,7 @@ func (cate *Category) HasName() (bool, error) {
 //GetByName query the specific name of category
 func (cate *Category) GetByName() error {
 	if err := db.Where("name = ?", cate.Name).First(&cate).Error; err != nil {
-		logger.Error("Failed to find specific name of category", err)
+		logger.Info("Failed to find specific name of category", err)
 		return err
 	}
 	return nil
@@ -75,7 +75,7 @@ func (cate *Category) GetByName() error {
 //Edit updates category data
 func (cate *Category) Edit() error {
 	if err := db.Model(&Category{}).Where("category_id = ?", cate.CategoryID).Updates(cate).Error; err != nil {
-		logger.Error("Failed to update category", err)
+		logger.Info("Failed to update category", err)
 		return err
 	}
 	return nil
@@ -84,7 +84,7 @@ func (cate *Category) Edit() error {
 //Delete deletes category data
 func (cate *Category) Delete() error {
 	if err := db.Where("category_id = ?", cate.CategoryID).Delete(cate).Error; err != nil {
-		logger.Error("Failed to delete category", err)
+		logger.Info("Failed to delete category", err)
 		return err
 	}
 	return nil

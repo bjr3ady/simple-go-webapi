@@ -23,7 +23,7 @@ func (home *Home) GetRelatedCategory() error {
 		CategoryID: home.CategoryID,
 	}
 	if err := cate.GetSingle(); err != nil {
-		logger.Error("Failed to qurry home related category", err)
+		logger.Info("Failed to qurry home related category", err)
 		return err
 	}
 	home.Category = *cate
@@ -34,7 +34,7 @@ func (home *Home) GetRelatedCategory() error {
 func (home *Home) Create() error {
 	home.HomeID = util.GUID()
 	if err := db.Create(&home).Error; err != nil {
-		logger.Error("Failed to create new home", err)
+		logger.Info("Failed to create new home", err)
 		return err
 	}
 	return nil
@@ -43,7 +43,7 @@ func (home *Home) Create() error {
 //GetSingle query the specific home data
 func (home *Home) GetSingle() error {
 	if err := db.Where("home_id = ?", home.HomeID).First(&home).Error; err != nil {
-		logger.Error("Failed to get specific home", err)
+		logger.Info("Failed to get specific home", err)
 		return err
 	}
 	if errCate := home.GetRelatedCategory(); errCate != nil {
@@ -56,12 +56,12 @@ func (home *Home) GetSingle() error {
 func (Home) GetSome(pageNum, pageSize int, maps interface{}) (interface{}, error) {
 	var homes []Home
 	if err := db.Where(maps).Offset(pageNum).Limit(pageSize).Find(&homes).Error; err != nil {
-		logger.Error("Failed to query homes by pagging", err)
+		logger.Info("Failed to query homes by pagging", err)
 		return nil, err
 	}
 	for index, home := range homes {
 		if err := home.GetRelatedCategory(); err != nil {
-			logger.Error(err)
+			logger.Info(err)
 			return nil, err
 		}
 		homes[index] = home
@@ -73,7 +73,7 @@ func (Home) GetSome(pageNum, pageSize int, maps interface{}) (interface{}, error
 func (Home) GetTotal(maps interface{}) (int, error) {
 	var count int
 	if err := db.Model(&Home{}).Where(maps).Count(&count).Error; err != nil {
-		logger.Error("Failed to query the count of homes", err)
+		logger.Info("Failed to query the count of homes", err)
 		return -1, err
 	}
 	return count, nil
@@ -82,7 +82,7 @@ func (Home) GetTotal(maps interface{}) (int, error) {
 //Edit updates home data
 func (home *Home) Edit() error {
 	if err := db.Model(&Home{}).Where("home_id = ?", home.HomeID).Updates(home).Error; err != nil {
-		logger.Error("Failed to update home data", err)
+		logger.Info("Failed to update home data", err)
 		return err
 	}
 	return nil
@@ -91,7 +91,7 @@ func (home *Home) Edit() error {
 //Delete deletes specific home data
 func (home *Home) Delete() error {
 	if err := db.Where("home_id = ?", home.HomeID).Delete(home).Error; err != nil {
-		logger.Error("Failed to delete specific home data", err)
+		logger.Info("Failed to delete specific home data", err)
 		return err
 	}
 	return nil

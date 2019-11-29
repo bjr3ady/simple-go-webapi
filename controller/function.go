@@ -105,7 +105,7 @@ func CreateFunc(w http.ResponseWriter, r *http.Request) {
 	} else {
 		funcm := models.Func{}
 		if err = json.Unmarshal(reqBytes, &funcm); err != nil {
-			logger.Error("Failed to unmarshal system function parameters:", err)
+			logger.Info("Failed to unmarshal system function parameters:", err)
 			code = e.INVALID_PARAMS
 		} else {
 			if err = application.NewFunc(funcm.Name); err != nil {
@@ -132,7 +132,7 @@ func UpdateFunc(w http.ResponseWriter, r *http.Request) {
 	} else {
 		funcm := models.Func{}
 		if err = json.Unmarshal(reqBytes, &funcm); err != nil {
-			logger.Error("Faile to unmarshal system function parameters:", err)
+			logger.Info("Faile to unmarshal system function parameters:", err)
 			code = e.INVALID_PARAMS
 		} else {
 			if err = application.EditFunc(funcID, funcm.Name); err != nil {

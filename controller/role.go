@@ -104,7 +104,7 @@ func CreateRole(w http.ResponseWriter, r *http.Request) {
 	} else {
 		role := models.Role{}
 		if err = json.Unmarshal(reqBytes, &role); err != nil {
-			logger.Error("Failed to unmarshal role parameters:", err)
+			logger.Info("Failed to unmarshal role parameters:", err)
 			code = e.INVALID_PARAMS
 		} else {
 			funcIDs := []string{}
@@ -134,7 +134,7 @@ func UpdateRole(w http.ResponseWriter, r *http.Request) {
 	} else {
 		role := models.Role{}
 		if err = json.Unmarshal(reqBytes, &role); err != nil {
-			logger.Error("Faile to unmarshal role parameters:", err)
+			logger.Info("Faile to unmarshal role parameters:", err)
 			code = e.INVALID_PARAMS
 		} else {
 			funcNames := []string{}

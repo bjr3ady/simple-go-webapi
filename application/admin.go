@@ -58,7 +58,7 @@ func NewAdmin(name, pwd string) error {
 	hasName, _ := AdminHasName(name)
 	if hasName {
 		err := errors.New("name of admin already exists")
-		logger.Error(err)
+		logger.Info(err)
 		return err
 	}
 

@@ -24,13 +24,13 @@ func (admin *Admin) Create() error {
 	}
 	roles := []Role{}
 	if errRole := db.Where("role_id in (?)", roleIDs).Find(&roles).Error; errRole != nil {
-		logger.Error("Failed to get roles while create new admin.", errRole)
+		logger.Info("Failed to get roles while create new admin.", errRole)
 		return errRole
 	}
 	admin.AdminID = util.GUID()
 	admin.Role = roles
 	if err := db.Create(&admin).Association("Role").Append(roles).Error; err != nil {
-		logger.Error("Failed to create new admin", err)
+		logger.Info("Failed to create new admin", err)
 		return err
 	}
 	return nil
@@ -39,11 +39,11 @@ func (admin *Admin) Create() error {
 //GetSingle query specific admin by id.
 func (admin *Admin) GetSingle() error {
 	if errAdmin := db.Where("admin_id = ?", admin.AdminID).First(&admin).Error; errAdmin != nil {
-		logger.Error("Failed to get specific admin.", errAdmin)
+		logger.Info("Failed to get specific admin.", errAdmin)
 		return errAdmin
 	}
 	if errRole := db.Model(&admin).Related(&admin.Role, "Role").Error; errRole != nil {
-		logger.Error("Failed to get admin relaed roles.", errRole)
+		logger.Info("Failed to get admin relaed roles.", errRole)
 		return errRole
 	}
 	return nil
@@ -53,7 +53,7 @@ func (admin *Admin) GetSingle() error {
 func (Admin) GetSome(pageNum, pageSize int, maps interface{}) (interface{}, error) {
 	var admins []Admin
 	if err := db.Preload("Role").Where(maps).Offset(pageNum).Limit(pageSize).Find(&admins).Error; err != nil {
-		logger.Error("Faile to query admins by pagging", err)
+		logger.Info("Faile to query admins by pagging", err)
 		return nil, err
 	}
 	return admins, nil
@@ -63,7 +63,7 @@ func (Admin) GetSome(pageNum, pageSize int, maps interface{}) (interface{}, erro
 func (Admin) GetTotal(maps interface{}) (int, error) {
 	var count int
 	if err := db.Preload("Role").Model(&Admin{}).Where(maps).Count(&count).Error; err != nil {
-		logger.Error("Failed to query the count of admins.", err)
+		logger.Info("Failed to query the count of admins.", err)
 		return -1, err
 	}
 	return count, nil
@@ -72,7 +72,7 @@ func (Admin) GetTotal(maps interface{}) (int, error) {
 //HasName determines the specific name of admin already exists.
 func (admin *Admin) HasName() (bool, error) {
 	if err := db.Where("name = ?", admin.Name).First(&admin).Error; err != nil {
-		logger.Error("Failed to query count of admins", err)
+		logger.Info("Failed to query count of admins", err)
 		return false, err
 	}
 	return admin.AdminID != "", nil
@@ -81,11 +81,11 @@ func (admin *Admin) HasName() (bool, error) {
 //GetByName query the specific name of admin.
 func (admin *Admin) GetByName() error {
 	if err := db.Where("name = ?", admin.Name).First(&admin).Error; err != nil {
-		logger.Error("Failed to query the specific name of admin", err)
+		logger.Info("Failed to query the specific name of admin", err)
 		return err
 	}
 	if errRole := db.Model(&admin).Related(&admin.Role, "Role").Error; errRole != nil {
-		logger.Error("Failed to get admin related roles.", errRole)
+		logger.Info("Failed to get admin related roles.", errRole)
 		return errRole
 	}
 	return nil
@@ -99,12 +99,12 @@ func (admin *Admin) Edit() error {
 	}
 	roles := []Role{}
 	if errRole := db.Where("role_id in (?)", roleIDs).Find(&roles).Error; errRole != nil {
-		logger.Error("Failed to find admin related roles.", errRole)
+		logger.Info("Failed to find admin related roles.", errRole)
 		return errRole
 	}
 	db.Model(&admin).Association("Role").Replace(roles)
 	if err := db.Model(&Admin{}).Updates(admin).Error; err != nil {
-		logger.Error("Failed to update admin.", err)
+		logger.Info("Failed to update admin.", err)
 		return err
 	}
 	return nil
@@ -113,12 +113,12 @@ func (admin *Admin) Edit() error {
 //Delete deletes specific admin data.
 func (admin *Admin) Delete() error {
 	if errAdmin := db.Where("admin_id = ?", admin.AdminID).First(&admin).Error; errAdmin != nil {
-		logger.Error("Failed to query specific admin", errAdmin)
+		logger.Info("Failed to query specific admin", errAdmin)
 		return errAdmin
 	}
 	db.Model(&admin).Association("Role").Clear()
 	if err := db.Where("admin_id = ?", admin.AdminID).Delete(admin).Error; err != nil {
-		logger.Error("Failed to delete specific admin", err)
+		logger.Info("Failed to delete specific admin", err)
 		return err
 	}
 	return nil

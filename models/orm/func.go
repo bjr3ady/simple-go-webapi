@@ -16,7 +16,7 @@ type Func struct {
 func (fun *Func) Create() error {
 	fun.FuncID = util.GUID()
 	if err := db.Create(&fun).Error; err != nil {
-		logger.Error("Failed to create system function.", err)
+		logger.Info("Failed to create system function.", err)
 		return err
 	}
 	return nil
@@ -26,7 +26,7 @@ func (fun *Func) Create() error {
 func (fun *Func) GetSome(pageNum, pageSize int, maps interface{}) (interface{}, error) {
 	var funcs []Func
 	if err := db.Where(maps).Offset(pageNum).Limit(pageSize).Find(&funcs).Error; err != nil {
-		logger.Error("Failed to get some system functions.", err)
+		logger.Info("Failed to get some system functions.", err)
 		return nil, err
 	}
 	return funcs, nil
@@ -36,7 +36,7 @@ func (fun *Func) GetSome(pageNum, pageSize int, maps interface{}) (interface{}, 
 func (Func) GetTotal(maps interface{}) (int, error) {
 	var count int
 	if err := db.Model(&Func{}).Where(maps).Count(&count).Error; err != nil {
-		logger.Error("Failed to query count of system functions.", err)
+		logger.Info("Failed to query count of system functions.", err)
 		return -1, err
 	}
 	return count, nil
@@ -45,7 +45,7 @@ func (Func) GetTotal(maps interface{}) (int, error) {
 //GetSingle query specific system function.
 func (fun *Func) GetSingle() error {
 	if err := db.Where("func_id=?", fun.FuncID).First(&fun).Error; err != nil {
-		logger.Error("Failed to query specific system function by id.", err)
+		logger.Info("Failed to query specific system function by id.", err)
 		return err
 	}
 	return nil
@@ -54,7 +54,7 @@ func (fun *Func) GetSingle() error {
 //Edit updates specific system function
 func (fun *Func) Edit() error {
 	if err := db.Model(&Func{}).Where("func_id=?", fun.FuncID).Updates(fun).Error; err != nil {
-		logger.Error("Failed to update system function.", err)
+		logger.Info("Failed to update system function.", err)
 		return err
 	}
 	return nil
@@ -63,7 +63,7 @@ func (fun *Func) Edit() error {
 //Delete deletes specific system function
 func (fun *Func) Delete() error {
 	if err := db.Model(&Func{}).Where("func_id=?", fun.FuncID).Delete(fun).Error; err != nil {
-		logger.Error("Failed to delete specific system function.", err)
+		logger.Info("Failed to delete specific system function.", err)
 		return err
 	}
 	return nil
@@ -72,7 +72,7 @@ func (fun *Func) Delete() error {
 //HasName determines the specific name of system functino exists.
 func (fun *Func) HasName() (bool, error) {
 	if err := db.Select("func_id").Where("name=?", fun.Name).First(&fun).Error; err != nil {
-		logger.Error("Failed to find specific name of system function.", err)
+		logger.Info("Failed to find specific name of system function.", err)
 		return false, err
 	}
 	return fun.FuncID != "", nil
@@ -81,7 +81,7 @@ func (fun *Func) HasName() (bool, error) {
 //GetByName query specific system function by name.
 func (fun *Func) GetByName() error {
 	if err := db.Where("name=?", fun.Name).First(&fun).Error; err != nil {
-		logger.Error("Failed to find specific system function by name.", err)
+		logger.Info("Failed to find specific system function by name.", err)
 		return err
 	}
 	return nil

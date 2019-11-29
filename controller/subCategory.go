@@ -92,7 +92,7 @@ func CreateSubCategory(w http.ResponseWriter, r *http.Request) {
 	} else {
 		subCate := &models.SubCategory{}
 		if err = json.Unmarshal(reqBytes, &subCate); err != nil {
-			logger.Error("failed to unmarshal sub-category parameters", err)
+			logger.Info("failed to unmarshal sub-category parameters", err)
 			code = e.INVALID_PARAMS
 		} else {
 			if err = application.NewSubCategory(subCate.Name, subCate.CategoryID); err != nil {
@@ -119,7 +119,7 @@ func UpdateSubCategory(w http.ResponseWriter, r *http.Request) {
 	} else {
 		subCate := &models.SubCategory{}
 		if err = json.Unmarshal(reqBytes, &subCate); err != nil {
-			logger.Error("failed to unmarshal sub-category parameters", err)
+			logger.Info("failed to unmarshal sub-category parameters", err)
 			code = e.INVALID_PARAMS
 		} else {
 			if err = application.EditSubCategory(subCateID, subCate.Name, subCate.CategoryID); err != nil {

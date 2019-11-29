@@ -19,7 +19,7 @@ func GetTheDefaultRole() (models.Role, error) {
 	role.Name = constant.DEFAULT_ROLE
 	err := role.GetByName()
 	if err != nil {
-		logger.Error("Failed to get the default role.")
+		logger.Info("Failed to get the default role.")
 		return models.Role{}, err
 	}
 	return *role, nil
@@ -30,7 +30,7 @@ func NewRole(name string, funcIDs []string) error {
 	hasName, _ := RoleHasName(name)
 	if hasName {
 		err := errors.New("name of role already exists")
-		logger.Error(err)
+		logger.Info(err)
 		return err
 	}
 	funcs := []models.Func{}

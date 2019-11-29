@@ -16,7 +16,7 @@ func NewFunc(name string) error {
 	hasName, _ := FuncHasName(name)
 	if hasName {
 		err := errors.New("name of system function already exists")
-		logger.Error(err)
+		logger.Info(err)
 		return err
 	}
 	funcModel = &models.Func{}
@@ -32,7 +32,7 @@ func GetTheDefaultFunc() (models.Func, error) {
 	funcm.Name = defaultFunctionName
 	err := funcm.GetByName()
 	if err != nil {
-		logger.Error("Failed to get default system function.")
+		logger.Info("Failed to get default system function.")
 		return models.Func{}, err
 	}
 	return *funcm, nil
