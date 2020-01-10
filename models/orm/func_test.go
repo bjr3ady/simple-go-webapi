@@ -3,7 +3,7 @@ package orm
 import (
 	"errors"
 	"testing"
-	"git.r3ady.com/golang/simple-go-webapi/pkg/setting"
+	"github.com/bjr3ady/simple-go-webapi/pkg/setting"
 )
 
 var testFunc NameSpecifier

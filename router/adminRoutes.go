@@ -3,8 +3,8 @@ package router
 import (
 	"github.com/gorilla/mux"
 
-	"git.r3ady.com/golang/simple-go-webapi/controller"
-	"git.r3ady.com/golang/simple-go-webapi/middleware/token"
+	"github.com/bjr3ady/simple-go-webapi/controller"
+	"github.com/bjr3ady/simple-go-webapi/middleware/token"
 )
 
 //HandleAdmin handles admin-only authenticated routes

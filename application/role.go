@@ -3,8 +3,8 @@ package application
 import (
 	"errors"
 
-	models "git.r3ady.com/golang/simple-go-webapi/models/orm"
-	constant "git.r3ady.com/golang/simple-go-webapi/models/constant"
+	models "github.com/bjr3ady/simple-go-webapi/models/orm"
+	constant "github.com/bjr3ady/simple-go-webapi/models/constant"
 	
 	logger "github.com/bjr3ady/go-logger"
 )

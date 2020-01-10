@@ -1,4 +1,4 @@
-module git.r3ady.com/golang/simple-go-webapi
+module github.com/bjr3ady/simple-go-webapi
 
 go 1.13
 

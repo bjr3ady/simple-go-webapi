@@ -3,9 +3,9 @@ package application
 import (
 	"errors"
 
-	models "git.r3ady.com/golang/simple-go-webapi/models/orm"
+	models "github.com/bjr3ady/simple-go-webapi/models/orm"
 	logger "github.com/bjr3ady/go-logger"
-	constant "git.r3ady.com/golang/simple-go-webapi/models/constant"
+	constant "github.com/bjr3ady/simple-go-webapi/models/constant"
 )
 
 var funcModel models.NameSpecifier

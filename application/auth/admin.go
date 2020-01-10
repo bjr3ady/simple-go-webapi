@@ -4,7 +4,7 @@ import (
 	"errors"
 	"net/http"
 
-	"git.r3ady.com/golang/simple-go-webapi/models/orm"
+	"github.com/bjr3ady/simple-go-webapi/models/orm"
 )
 
 //AdminAuth is the bearer token object.

@@ -5,7 +5,7 @@ import (
 	"crypto/md5"
 	"fmt"
 
-	"git.r3ady.com/golang/simple-go-webapi/pkg/setting"
+	"github.com/bjr3ady/simple-go-webapi/pkg/setting"
 )
 
 //UserAuth is the bearer token object.

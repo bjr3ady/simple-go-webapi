@@ -11,9 +11,9 @@ import (
 	"runtime"
 
 	logger "github.com/bjr3ady/go-logger"
-	models "git.r3ady.com/golang/simple-go-webapi/models/orm"
-	"git.r3ady.com/golang/simple-go-webapi/pkg/setting"
-	"git.r3ady.com/golang/simple-go-webapi/router"
+	models "github.com/bjr3ady/simple-go-webapi/models/orm"
+	"github.com/bjr3ady/simple-go-webapi/pkg/setting"
+	"github.com/bjr3ady/simple-go-webapi/router"
 )
 
 func init() {

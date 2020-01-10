@@ -2,7 +2,7 @@ package orm
 
 import (
 	"errors"
-	"git.r3ady.com/golang/simple-go-webapi/pkg/setting"
+	"github.com/bjr3ady/simple-go-webapi/pkg/setting"
 	util "github.com/bjr3ady/go-util"
 	"testing"
 	"time"

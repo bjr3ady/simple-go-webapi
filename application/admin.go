@@ -4,8 +4,8 @@ import (
 	"errors"
 	"time"
 
-	"git.r3ady.com/golang/simple-go-webapi/application/auth"
-	models "git.r3ady.com/golang/simple-go-webapi/models/orm"
+	"github.com/bjr3ady/simple-go-webapi/application/auth"
+	models "github.com/bjr3ady/simple-go-webapi/models/orm"
 	logger "github.com/bjr3ady/go-logger"
 	util "github.com/bjr3ady/go-util"
 )

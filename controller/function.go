@@ -7,9 +7,9 @@ import (
 
 	"github.com/unknwon/com"
 
-	models "git.r3ady.com/golang/simple-go-webapi/models/orm"
-	"git.r3ady.com/golang/simple-go-webapi/application"
-	"git.r3ady.com/golang/simple-go-webapi/pkg/e"
+	models "github.com/bjr3ady/simple-go-webapi/models/orm"
+	"github.com/bjr3ady/simple-go-webapi/application"
+	"github.com/bjr3ady/simple-go-webapi/pkg/e"
 	"github.com/bjr3ady/go-logger"
 )
 
