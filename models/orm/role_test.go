@@ -1,7 +1,7 @@
 package orm
 
 import (
-	"git.r3ady.com/golang/school-board/pkg/setting"
+	"git.r3ady.com/golang/simple-go-webapi/pkg/setting"
 	"errors"
 	"testing"
 )

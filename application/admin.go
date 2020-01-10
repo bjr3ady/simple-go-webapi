@@ -4,8 +4,8 @@ import (
 	"errors"
 	"time"
 
-	"git.r3ady.com/golang/school-board/application/auth"
-	models "git.r3ady.com/golang/school-board/models/orm"
+	"git.r3ady.com/golang/simple-go-webapi/application/auth"
+	models "git.r3ady.com/golang/simple-go-webapi/models/orm"
 	logger "github.com/bjr3ady/go-logger"
 	util "github.com/bjr3ady/go-util"
 )
@@ -204,6 +204,7 @@ func RemoveAdmin(adminID string) error {
 	return nil
 }
 
+//GenerateBearerToken call auth.GenerateBearerToken
 func GenerateBearerToken(id, token, url string) string {
 	return auth.GenerateBearerToken(token, id, url)
 }

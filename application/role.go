@@ -3,12 +3,11 @@ package application
 import (
 	"errors"
 
-	models "git.r3ady.com/golang/school-board/models/orm"
-	constant "git.r3ady.com/golang/school-board/models/constant"
+	models "git.r3ady.com/golang/simple-go-webapi/models/orm"
+	constant "git.r3ady.com/golang/simple-go-webapi/models/constant"
 	
 	logger "github.com/bjr3ady/go-logger"
 )
-
 
 var roleModel models.NameSpecifier
 

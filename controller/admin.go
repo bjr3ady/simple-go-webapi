@@ -9,9 +9,9 @@ import (
 
 	logger "github.com/bjr3ady/go-logger"
 
-	"git.r3ady.com/golang/school-board/application"
-	models "git.r3ady.com/golang/school-board/models/orm"
-	"git.r3ady.com/golang/school-board/pkg/e"
+	"git.r3ady.com/golang/simple-go-webapi/application"
+	models "git.r3ady.com/golang/simple-go-webapi/models/orm"
+	"git.r3ady.com/golang/simple-go-webapi/pkg/e"
 )
 
 //GetOneAdmin get id specific admin

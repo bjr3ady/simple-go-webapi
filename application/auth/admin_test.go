@@ -2,9 +2,9 @@ package auth
 
 import (
 	"errors"
-	app "git.r3ady.com/golang/school-board/application"
-	models "git.r3ady.com/golang/school-board/models/orm"
-	"git.r3ady.com/golang/school-board/pkg/setting"
+	app "git.r3ady.com/golang/simple-go-webapi/application"
+	models "git.r3ady.com/golang/simple-go-webapi/models/orm"
+	"git.r3ady.com/golang/simple-go-webapi/pkg/setting"
 	"testing"
 )
 

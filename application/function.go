@@ -3,13 +3,12 @@ package application
 import (
 	"errors"
 
-	models "git.r3ady.com/golang/school-board/models/orm"
+	models "git.r3ady.com/golang/simple-go-webapi/models/orm"
 	logger "github.com/bjr3ady/go-logger"
+	constant "git.r3ady.com/golang/simple-go-webapi/models/constant"
 )
 
 var funcModel models.NameSpecifier
-
-const defaultFunctionName = "DEFAULT"
 
 //NewFunc creates new system function model.
 func NewFunc(name string) error {
@@ -29,7 +28,7 @@ func NewFunc(name string) error {
 func GetTheDefaultFunc() (models.Func, error) {
 	funcModel = &models.Func{}
 	funcm := funcModel.(*models.Func)
-	funcm.Name = defaultFunctionName
+	funcm.Name = constant.DEFAULT_FUNCTION
 	err := funcm.GetByName()
 	if err != nil {
 		logger.Info("Failed to get default system function.")

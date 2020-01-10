@@ -7,7 +7,7 @@ import (
 	"github.com/rs/cors"
 
 	logger "github.com/bjr3ady/go-logger"
-	"git.r3ady.com/golang/school-board/controller"
+	"git.r3ady.com/golang/simple-go-webapi/controller"
 )
 
 //InitRouter routes all request to controllers.

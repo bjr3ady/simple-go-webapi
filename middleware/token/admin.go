@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strings"
 
-	"git.r3ady.com/golang/school-board/application/auth"
-	"git.r3ady.com/golang/school-board/pkg/e"
+	"git.r3ady.com/golang/simple-go-webapi/application/auth"
+	"git.r3ady.com/golang/simple-go-webapi/pkg/e"
 	logger "github.com/bjr3ady/go-logger"
 )
 

@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"git.r3ady.com/golang/school-board/pkg/e"
+	"git.r3ady.com/golang/simple-go-webapi/pkg/e"
 	logger "github.com/bjr3ady/go-logger"
 	"github.com/gorilla/mux"
 )

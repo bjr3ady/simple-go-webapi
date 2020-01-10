@@ -3,8 +3,8 @@ package router
 import (
 	"github.com/gorilla/mux"
 
-	"git.r3ady.com/golang/school-board/controller"
-	"git.r3ady.com/golang/school-board/middleware/token"
+	"git.r3ady.com/golang/simple-go-webapi/controller"
+	"git.r3ady.com/golang/simple-go-webapi/middleware/token"
 )
 
 //HandleAdmin handles admin-only authenticated routes
@@ -38,43 +38,4 @@ func HandleAdmin(baseRouter *mux.Router) {
 	v1.HandleFunc("/role/byname/{name}", controller.GetRoleByName).Methods("GET")
 	v1.HandleFunc("/role/{id}", controller.UpdateRole).Methods("PUT")
 	v1.HandleFunc("/role/{id}", controller.DeleteRole).Methods("DELETE")
-
-	//Category web apis
-	v1.HandleFunc("/category/all", controller.GetAllCategories).Methods("GET")
-	v1.HandleFunc("/category/default", controller.GetDefaultCategory).Methods("GET")
-	v1.HandleFunc("/category", controller.CreateCategory).Methods("POST")
-	v1.HandleFunc("/category/{id}", controller.GetOneCategory).Methods("GET")
-	v1.HandleFunc("/category/byname/{name}", controller.GetCategoryByName).Methods("GET")
-	v1.HandleFunc("/category/{id}", controller.UpdateCategory).Methods("PUT")
-	v1.HandleFunc("/category/{id}", controller.DeleteCategory).Methods("DELETE")
-
-	//SubCategory web apis
-	v1.HandleFunc("/subcategory/all", controller.GetAllSubCategories).Methods("GET")
-	v1.HandleFunc("/subcategory/default", controller.GetDefaultSubCategory).Methods("GET")
-	v1.HandleFunc("/subcategory", controller.CreateSubCategory).Methods("POST")
-	v1.HandleFunc("/subcategory/{id}", controller.GetOneSubCategory).Methods("GET")
-	v1.HandleFunc("/subcategory/byname/{name}", controller.GetSubCategoryByName).Methods("GET")
-	v1.HandleFunc("/subcategory/{id}", controller.UpdateSubCategory).Methods("PUT")
-	v1.HandleFunc("/subcategory/{id}", controller.DeleteSubCategory).Methods("DELETE")
-
-	//Content web apis
-	v1.HandleFunc("/content/all", controller.GetAllContents).Methods("GET")
-	v1.HandleFunc("/content", controller.CreateContent).Methods("POST")
-	v1.HandleFunc("/content/{id}", controller.GetOneContent).Methods("GET")
-	v1.HandleFunc("/content/{id}", controller.UpdateContent).Methods("PUT")
-	v1.HandleFunc("/content/{id}", controller.DeleteContent).Methods("DELETE")
-
-	//Item web apis
-	v1.HandleFunc("/item/all", controller.GetAllItems).Methods("GET")
-	v1.HandleFunc("/item", controller.CreateItem).Methods("POST")
-	v1.HandleFunc("/item/{id}", controller.GetOneItem).Methods("GET")
-	v1.HandleFunc("/item/{id}", controller.UpdateItem).Methods("PUT")
-	v1.HandleFunc("/item/{id}", controller.DeleteItem).Methods("DELETE")
-
-	//Home web apis
-	v1.HandleFunc("/home/all", controller.GetAllHomes).Methods("GET")
-	v1.HandleFunc("/home", controller.CreateHome).Methods("POST")
-	v1.HandleFunc("/home/{id}", controller.GetOneHome).Methods("GET")
-	v1.HandleFunc("/home/{id}", controller.UpdateHome).Methods("PUT")
-	v1.HandleFunc("/home/{id}", controller.DeleteHome).Methods("DELETE")
 }

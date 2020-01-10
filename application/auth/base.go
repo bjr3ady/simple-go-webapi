@@ -5,7 +5,7 @@ import (
 	"crypto/md5"
 	"fmt"
 
-	"git.r3ady.com/golang/school-board/pkg/setting"
+	"git.r3ady.com/golang/simple-go-webapi/pkg/setting"
 )
 
 //UserAuth is the bearer token object.
@@ -25,6 +25,7 @@ type Authler interface {
 	Auth() (bool, error)
 }
 
+//GenerateBearerToken generate new string token.
 func GenerateBearerToken(token, ID, URL string) string {
 	targetString := fmt.Sprintf("%s,%s,%s", URL, ID, token)
 	data := []byte(targetString)
