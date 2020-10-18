@@ -1,0 +1,19 @@
+run_mod: "DEBUG"
+app:
+  name: "REST service"
+  page_size: 10
+  jwt_secret: "23347$040412"
+server:
+  http_port: 8080
+  read_timeout: 60
+  write_timeout: 60
+  http_proto: "https"
+database:
+  type: "mysql"
+  user: "root"
+  # host: "127.0.0.1"
+  # password: "123456"
+  password: "*****"
+  host: "mysql.db" #ECS
+  name: "test"
+  table_prefix: "test_"

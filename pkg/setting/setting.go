@@ -1,64 +1,74 @@
 package setting
 
 import (
+	"fmt"
+	"io/ioutil"
 	"log"
 	"time"
 
-	"github.com/go-ini/ini"
+	yaml "gopkg.in/yaml.v2"
 )
 
 var (
-	Cfg *ini.File
-
+	//Cfg is the service configuration.
+	Cfg *Config
+	//RunMode is the service running mode tag configuration.
 	RunMode string
-
+	//HTTPPort is the service listening port configuration.
 	HTTPPort int
-
+	//HTTPProto is the http proto
 	HTTPProto string
-
+	//ReadTimeout is the http service read time-out limit configuration.
 	ReadTimeout time.Duration
-
+	//WriteTimeout is the http serice write time-out limit configuration.
 	WriteTimeout time.Duration
-
+	//PageSize is the service default pagging number while execute sql queries.
 	PageSize int
-
+	//JwtSecret is the AUTH JWT secret configuration
 	JwtSecret string
+	//ServiceName is the service's name
+	ServiceName string
 )
 
-func init() {
-	var err error
-	Cfg, err = ini.Load("./conf/app.ini")
-	if err != nil {
-		log.Fatalf("Failed to parse 'conf/app.ini': %v", err)
+//Load loads configuration from a yaml file.
+func Load(confPath string) {
+	if Cfg != nil {
 		return
 	}
+	defer func() {
+		if err := recover(); err != nil {
+			log.Fatal(err)
+		}
+	}()
+	// yamlFile, err := ioutil.ReadFile("./config/srv.yaml")
+	yamlFile, err := ioutil.ReadFile(confPath)
+	if err != nil {
+		panic(fmt.Sprintf("load yaml configuration file error: %v", err))
+	}
+	conf := &Config{}
+	err = yaml.Unmarshal(yamlFile, conf)
+	if err != nil {
+		panic(fmt.Sprintf("Unmarshall yaml configuration file failed: %v", err))
+	}
+	Cfg = conf
 	loadBase()
 	loadServer()
 	loadApp()
 }
 
 func loadBase() {
-	RunMode = Cfg.Section("").Key("RUN_MODE").MustString("debug")
+	RunMode = Cfg.RunMode
 }
 
 func loadServer() {
-	sec, err := Cfg.GetSection("server")
-	if err != nil {
-		log.Fatalf("Failed to get section 'server': %v", err)
-		return
-	}
-	HTTPPort = sec.Key("HTTP_PORT").MustInt(8000)
-	HTTPProto = sec.Key("HTTP_PROTO").MustString("http")
-	ReadTimeout = time.Duration(sec.Key("READ_TIMEOUT").MustInt(60)) * time.Second
-	WriteTimeout = time.Duration(sec.Key("WRITE_TIMEOUT").MustInt(60)) * time.Second
+	HTTPPort = Cfg.Server.HTTPPort
+	HTTPProto = Cfg.Server.HTTPProto
+	ReadTimeout = time.Duration(Cfg.Server.ReadTimeout) * time.Second
+	WriteTimeout = time.Duration(Cfg.Server.WriteTimeout) * time.Second
 }
 
 func loadApp() {
-	sec, err := Cfg.GetSection("app")
-	if err != nil {
-		log.Fatalf("Faile to get section 'app': %v", err)
-		return
-	}
-	JwtSecret = sec.Key("JWT_SECRET").MustString("!@)*#)!@U#@*!@!")
-	PageSize = sec.Key("PAGE_SIZE").MustInt(10)
+	ServiceName = Cfg.App.ServiceName
+	JwtSecret = Cfg.App.JwtSecret
+	PageSize = Cfg.App.PageSize
 }

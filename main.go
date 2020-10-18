@@ -26,6 +26,7 @@ func main() {
 	flag.DurationVar(&wait, "graceful-timeout", time.Second*15, "the duation for which the server graceful wait for existing connections to finish -e.g. 15s or 1m")
 	flag.Parse()
 
+	setting.Load("./conf/srv.yaml")
 	err := models.ConnectDb(setting.Cfg)
 	for err != nil {
 		logger.Error("Connect to database failed, wait 3 seconds to re-connect... Details:", err)
