@@ -4,13 +4,13 @@ import (
 	"net/http"
 	"strings"
 
+	logger "github.com/bjr3ady/go-logger"
 	"github.com/bjr3ady/simple-go-webapi/application/auth"
 	"github.com/bjr3ady/simple-go-webapi/pkg/e"
-	logger "github.com/bjr3ady/go-logger"
 )
 
-//Admin authenticate admin request.
-func Admin(next http.Handler) http.Handler {
+//BearerMiddleware authenticate admin request.
+func BearerMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		authHeader := r.Header.Get("Authorization")
 		if authHeader == "" {
@@ -26,7 +26,7 @@ func Admin(next http.Handler) http.Handler {
 			adminAuth = &auth.AdminAuth{
 				AdminID: adminid,
 				Bearer:  token,
-				Req: r,
+				Req:     r,
 			}
 			checked, err := adminAuth.Auth()
 			if checked {
