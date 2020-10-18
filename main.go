@@ -27,12 +27,12 @@ func main() {
 	flag.Parse()
 
 	setting.Load("./conf/srv.yaml")
-	err := models.ConnectDb(setting.Cfg)
-	for err != nil {
-		logger.Error("Connect to database failed, wait 3 seconds to re-connect... Details:", err)
-		time.Sleep(3 * time.Second)
-		err = models.ConnectDb(setting.Cfg)
-	}
+	// err := models.ConnectDb(setting.Cfg)
+	// for err != nil {
+	// 	logger.Error("Connect to database failed, wait 3 seconds to re-connect... Details:", err)
+	// 	time.Sleep(3 * time.Second)
+	// 	err = models.ConnectDb(setting.Cfg)
+	// }
 	logger.Info("Database connect success")
 
 	r := router.InitRouter()
