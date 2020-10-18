@@ -4,11 +4,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/go-ini/ini"
-
 	"github.com/bjr3ady/gorm"
 	_ "github.com/bjr3ady/gorm/dialects/mysql"
-	
+	"github.com/bjr3ady/simple-go-webapi/pkg/setting"
 )
 
 var db *gorm.DB
@@ -47,39 +45,30 @@ type SerialNoSpecifier interface {
 }
 
 //ConnectDb connect mysql database.
-func ConnectDb(conf *ini.File) error {
+func ConnectDb(conf *setting.Config) error {
 	var (
-		err                                          error
-		dbType, dbName, user, pwd, host, tablePrefix string
+		err                             error
+		dbType, dbName, user, pwd, host string
 	)
 
-	sec, err := conf.GetSection("database")
-	if err != nil {
-		return err
-	}
-
-	dbType = sec.Key("TYPE").String()
-	dbName = sec.Key("NAME").String()
-	user = sec.Key("USER").String()
-	pwd = sec.Key("PASSWORD").String()
-	host = sec.Key("HOST").String()
-	tablePrefix = sec.Key("TABLE_PREFIX").String()
+	dbType = conf.Database.Type
+	dbName = conf.Database.Name
+	user = conf.Database.User
+	pwd = conf.Database.Password
+	host = conf.Database.Host
 
 	db, err = gorm.Open(dbType, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
 		user,
 		pwd,
 		host,
 		dbName))
-		// db.LogMode(true)
+	// db.LogMode(true)
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 
-	gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
-		return tablePrefix + defaultTableName
-	}
-
-	db.SingularTable(true)
+	db.SingularTable(false)
 	db.DB().SetMaxIdleConns(10)
 	db.DB().SetMaxOpenConns(100)
 	return nil
