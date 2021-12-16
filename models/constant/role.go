@@ -1,5 +1,6 @@
 package constant
 
 const (
-	DEFAULT_ROLE = "DEFAULT"
+	//DefaultRole is the system default role name
+	DefaultRole = "DEFAULT"
 )

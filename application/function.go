@@ -3,9 +3,9 @@ package application
 import (
 	"errors"
 
-	models "github.com/bjr3ady/simple-go-webapi/models/orm"
 	logger "github.com/bjr3ady/go-logger"
 	constant "github.com/bjr3ady/simple-go-webapi/models/constant"
+	models "github.com/bjr3ady/simple-go-webapi/models/orm"
 )
 
 var funcModel models.NameSpecifier
@@ -28,7 +28,7 @@ func NewFunc(name string) error {
 func GetTheDefaultFunc() (models.Func, error) {
 	funcModel = &models.Func{}
 	funcm := funcModel.(*models.Func)
-	funcm.Name = constant.DEFAULT_FUNCTION
+	funcm.Name = constant.DefaultFunction
 	err := funcm.GetByName()
 	if err != nil {
 		logger.Info("Failed to get default system function.")

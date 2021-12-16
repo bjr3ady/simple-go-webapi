@@ -4,10 +4,10 @@ import (
 	"errors"
 	"time"
 
-	"github.com/bjr3ady/simple-go-webapi/application/auth"
-	models "github.com/bjr3ady/simple-go-webapi/models/orm"
 	logger "github.com/bjr3ady/go-logger"
 	util "github.com/bjr3ady/go-util"
+	"github.com/bjr3ady/simple-go-webapi/application/auth"
+	models "github.com/bjr3ady/simple-go-webapi/models/orm"
 )
 
 //PasswordChange is the JSON struct for updating admin password
@@ -65,7 +65,7 @@ func NewAdmin(name, pwd string) error {
 	adminModel = &models.Admin{}
 	admin := adminModel.(*models.Admin)
 	admin.Name = name
-	admin.Pwd = pwd
+	admin.Pwd = util.Md5String(pwd)
 	admin.Token = util.GUID()
 	admin.TokenExpire = time.Now().Add(time.Second * 30).Unix()
 	admin.Role = []models.Role{}
@@ -79,7 +79,7 @@ func LoginAdmin(name, pwd string) (AdminLoginResult, error) {
 	if err != nil {
 		return AdminLoginResult{}, err
 	}
-	if pwd != admin.Pwd {
+	if util.Md5String(pwd) != admin.Pwd {
 		return AdminLoginResult{}, errors.New("password not match")
 	}
 	funcs, err := getAdminFunctions(admin.Role)

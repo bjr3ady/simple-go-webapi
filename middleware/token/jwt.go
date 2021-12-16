@@ -27,19 +27,18 @@ func JWTMiddleware(next http.Handler) http.Handler {
 		if tokenStr == "" {
 			http.Error(w, e.GetMsg(e.ERROR_AUTH_TOKEN), http.StatusUnauthorized)
 			return
-		} else {
-			token, _ := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
-				if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-					http.Error(w, e.GetMsg(e.ERROR_AUTH_TOKEN), http.StatusUnauthorized)
-					return nil, fmt.Errorf("not authorized")
-				}
-				return []byte(setting.JwtSecret), nil
-			})
-			if !token.Valid {
-				http.Error(w, e.GetMsg(e.ERROR_AUTH_TOKEN), http.StatusUnauthorized)
-				return
-			}
-			next.ServeHTTP(w, r)
 		}
+		token, _ := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
+			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+				http.Error(w, e.GetMsg(e.ERROR_AUTH_TOKEN), http.StatusUnauthorized)
+				return nil, fmt.Errorf("not authorized")
+			}
+			return []byte(setting.JwtSecret), nil
+		})
+		if !token.Valid {
+			http.Error(w, e.GetMsg(e.ERROR_AUTH_TOKEN), http.StatusUnauthorized)
+			return
+		}
+		next.ServeHTTP(w, r)
 	})
 }

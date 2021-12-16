@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/bjr3ady/gorm"
-	_ "github.com/bjr3ady/gorm/dialects/mysql"
+	_ "github.com/bjr3ady/gorm/dialects/mysql" //import default mysql driver
 	"github.com/bjr3ady/simple-go-webapi/pkg/setting"
 )
 
