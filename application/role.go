@@ -3,9 +3,9 @@ package application
 import (
 	"errors"
 
-	models "github.com/bjr3ady/simple-go-webapi/models/orm"
 	constant "github.com/bjr3ady/simple-go-webapi/models/constant"
-	
+	models "github.com/bjr3ady/simple-go-webapi/models/orm"
+
 	logger "github.com/bjr3ady/go-logger"
 )
 
@@ -15,7 +15,7 @@ var roleModel models.NameSpecifier
 func GetTheDefaultRole() (models.Role, error) {
 	roleModel = &models.Role{}
 	role := roleModel.(*models.Role)
-	role.Name = constant.DEFAULT_ROLE
+	role.Name = constant.DefaultRole
 	err := role.GetByName()
 	if err != nil {
 		logger.Info("Failed to get the default role.")

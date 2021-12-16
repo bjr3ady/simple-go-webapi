@@ -1,5 +1,6 @@
 package constant
 
 const (
-	DEFAULT_FUNCTION = "BASIC"
+	//DefaultFunction is the system default function name
+	DefaultFunction = "BASIC"
 )

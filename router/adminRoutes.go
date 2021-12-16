@@ -10,7 +10,7 @@ import (
 //HandleAdmin handles admin-only authenticated routes
 func HandleAdmin(baseRouter *mux.Router) {
 	v1 := baseRouter.PathPrefix("/api/v1").Subrouter()
-	v1.Use(token.Admin)
+	v1.Use(token.JWTMiddleware)
 
 	//Admin web apis
 	v1.HandleFunc("/admin/all", controller.GetAllAdmins).Methods("GET")
